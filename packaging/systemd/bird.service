@@ -1,0 +1,18 @@
+[Unit]
+Description=BIRD Internet Routing Daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+RuntimeDirectory=bird
+RuntimeDirectoryMode=0755
+ExecStart=/usr/sbin/bird -c /etc/bird/bird.conf -s /run/bird/bird.ctl
+ExecReload=/usr/sbin/birdc configure
+LimitNOFILE=1048576
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
